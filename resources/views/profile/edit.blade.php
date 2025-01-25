@@ -38,7 +38,7 @@
                         <ul class="nav nav-tabs nav-tabs-bordered">
 
                             <li class="nav-item">
-                                <button class="nav-link {{ request('tab') == 'profile-overview' || empty(request()) ? 'active' : '' }}" onclick="changeTabs('profile-overview')" data-bs-toggle="tab"
+                                <button class="nav-link {{ request('tab') == 'profile-overview' || empty(request('tab')) ? 'active' : '' }}" onclick="changeTabs('profile-overview')" data-bs-toggle="tab"
                                     data-bs-target="#profile-overview">Overview</button>
                             </li>
 
@@ -60,7 +60,7 @@
                         </ul>
                         <div class="tab-content pt-2">
 
-                            <div class="tab-pane fade {{ request('tab') == 'profile-overview' || empty(request()) ? 'show active' : '' }} profile-overview" id="profile-overview">
+                            <div class="tab-pane fade {{ request('tab') == 'profile-overview' || empty(request('tab')) ? 'show active' : '' }} profile-overview" id="profile-overview">
 
                                 <h5 class="card-title">Profile Details</h5>
 
@@ -84,7 +84,7 @@
                             <div class="tab-pane fade {{ request('tab') == 'profile-edit' ? 'show active' : '' }} profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" novalidate class="needs-validation">
                                     @csrf
                                     @method('PATCH')
                                     <div class="row mb-3">
@@ -103,9 +103,10 @@
 
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
-                                        <div class="col-md-8 col-lg-9">
+                                        <div class="col-md-8 col-lg-9 has-validation">
                                             <input name="name" type="text" class="form-control" id="fullName"
-                                                value="{{ $user->name }}">
+                                                value="{{ $user->name }}" required>
+                                            <div class="invalid-feedback">Please enter your name.</div>
                                         </div>
                                     </div>
 
@@ -121,7 +122,8 @@
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="email" type="email" class="form-control" id="Email"
-                                                value="{{ $user->email }}">
+                                                value="{{ $user->email }}" required>
+                                            <div class="invalid-feedback">Please enter your email.</div>
                                         </div>
                                     </div>
 
@@ -189,9 +191,6 @@
                                             <input name="current_password" type="password" class="form-control"
                                                 id="currentPassword" required>
                                             <div class="invalid-feedback">Please enter your password.</div>
-                                            @error('current_password', 'updatePassword')
-                                                <div class="error">{{ $message }}</div>
-                                            @enderror
                                         </div>
                                     </div>
 
@@ -202,9 +201,6 @@
                                             <input name="password" type="password" class="form-control" id="newPassword"
                                                 required>
                                             <div class="invalid-feedback">Please enter your new password.</div>
-                                            @error('password', 'updatePassword')
-                                                <div class="error">{{ $message }}</div>
-                                            @enderror
                                         </div>
                                     </div>
 

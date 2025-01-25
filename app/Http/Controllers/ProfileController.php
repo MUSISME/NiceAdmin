@@ -46,7 +46,7 @@ class ProfileController extends Controller
         }
 
         // Return a success response with status and message
-        return Redirect::route('profile.edit')
+        return back()
             ->with('status', 'success')
             ->with('message', 'Your profile has been updated successfully!');
     }
