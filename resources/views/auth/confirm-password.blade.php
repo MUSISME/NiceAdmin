@@ -71,28 +71,22 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <p class="text-left small">Thanks for signing up! Before getting started, could
-                                            you verify your email address by clicking on the link we just emailed to
-                                            you? If you didn't receive the email, we will gladly send you another.</p>
+                                        <p class="text-left small">This is a secure area of the application. Please confirm your password before continuing.</p>
                                     </div>
-                                    <div class="row g-3 needs-validation d-flex justify-between">
-                                        <div class="col-md-8">
-                                                <form class="" novalidate
-                                                    method="POST" action="{{ route('verification.send') }}">
-                                                    @csrf
-                                                <button class="btn btn-primary btn-sm w-100" type="submit">Resend
-                                                    Verification Email</button>
-                                                </form>
-                                            </div>
-                                        <div class="col-md-4 text-center">
-                                            <form method="POST" action="{{ route('logout') }}">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm text-sm btn-outline-secondary">
-                                                    Log Out
-                                                </button>
-                                            </form>
+
+                                    <form class="row g-3 needs-validation" novalidate
+                                        method="POST" action="{{ route('password.confirm') }}">
+                                        @csrf
+                                        <div class="col-12">
+                                            <label for="yourPassword" class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control"
+                                                id="yourPassword" required>
+                                            <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
-                                    </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary w-100" type="submit">Confirm</button>
+                                        </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -125,3 +119,4 @@
 </body>
 
 </html>
+
