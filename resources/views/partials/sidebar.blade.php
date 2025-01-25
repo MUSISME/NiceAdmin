@@ -179,21 +179,27 @@
             </ul>
         </li><!-- End Icons Nav -->
 
-        <li class="nav-heading">Pages</li>
+        @if (auth()->user()->can(['list.profile', 'list.contacts']))   
+            <li class="nav-heading">Pages</li>
+        @endif
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('profile.edit') }}">
-            <i class="bi bi-person"></i>
-            <span>Profile</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
+        @if (auth()->user()->can('list.profile'))  
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('profile.edit') }}">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+                </a>
+            </li>
+        @endif
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/contact">
-            <i class="bi bi-envelope"></i>
-            <span>Contact</span>
-            </a>
-        </li><!-- End Contact Page Nav -->
+        @if (auth()->user()->can('list.contacts'))
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/contact">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+                </a>
+            </li>
+        @endif
 
     </ul>
 

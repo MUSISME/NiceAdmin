@@ -182,15 +182,17 @@
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.edit') }}">
-                            <i class="bi bi-person"></i>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                    @if (auth()->user()->can('list.profile'))
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.edit') }}">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    @endif
 
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="#">

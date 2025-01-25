@@ -165,39 +165,42 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                    <form method="POST" action="{{ route('password.update') }}">
+                    <form method="POST" class="needs-validation" novalidate action="{{ route('password.update') }}">
                         @csrf
                         @method('PUT')
-                    <div class="row mb-3">
-                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                        <div class="col-md-8 col-lg-9">
-                            <input name="current_password" type="password" class="form-control" id="currentPassword">
-                            @error('current_password', 'updatePassword')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
+                        <div class="row mb-3">
+                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                            <div class="col-md-8 col-lg-9 has-validation">
+                                <input name="current_password" type="password" class="form-control" id="currentPassword" required>
+                                <div class="invalid-feedback">Please enter your password.</div>
+                                @error('current_password', 'updatePassword')
+                                    <div class="error">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                        <div class="col-md-8 col-lg-9">
-                            <input name="password" type="password" class="form-control" id="newPassword">
-                            @error('password', 'updatePassword')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
+                        <div class="row mb-3">
+                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                            <div class="col-md-8 col-lg-9">
+                                <input name="password" type="password" class="form-control" id="newPassword" required>
+                                <div class="invalid-feedback">Please enter your new password.</div>
+                                @error('password', 'updatePassword')
+                                    <div class="error">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                        <div class="col-md-8 col-lg-9">
-                        <input name="password_confirmation" type="password" class="form-control" id="renewPassword">
+                        <div class="row mb-3">
+                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                            <div class="col-md-8 col-lg-9">
+                            <input name="password_confirmation" type="password" class="form-control" id="renewPassword" required>
+                            <div class="invalid-feedback">Please re-enter your new password.</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Change Password</button>
-                    </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </div>
                     </form><!-- End Change Password Form -->
 
                 </div>
