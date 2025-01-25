@@ -43,6 +43,16 @@
     <body>
 
         <main>
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="container">
 
                 <section
@@ -96,7 +106,10 @@
                                             <div class="col-12">
                                                 <button class="btn btn-primary w-100" type="submit">Login</button>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12 text-center">
+                                                <p class="small mb-0"><a href="{{ route('password.request') }}">Forgot Password</a></p>
+                                            </div>
+                                            <div class="col-12 text-center">
                                                 <p class="small mb-0">Don't have account? <a
                                                         href="{{ route('register') }}">Create an account</a></p>
                                             </div>

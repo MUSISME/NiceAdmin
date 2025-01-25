@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+    <title>Register</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -35,6 +35,15 @@
 <body>
 
     <main>
+
+        @if(session('status'))
+            <div class="alert alert-{{ session('status') }} alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-1"></i>
+                {{ session('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="container">
 
             <section
