@@ -3,7 +3,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="">
+            <img src="{{ asset('niceadmin/assets/img/logo.png') }}" alt="">
             <span class="d-none d-lg-block">NiceAdmin</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -169,13 +169,13 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('assets/img/agent-dummy.webp') }}" alt="Profile" class="rounded-circle">
+                    <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}" alt="Profile" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('assets/img/agent-dummy.webp') }}" alt="Profile" class="img-fluid rounded-circle border border-dark border-1 my-2" width="50%">
+                        <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}" alt="Profile" class="img-fluid rounded-circle border border-dark border-1 my-2" width="50%">
                         <h6>{{ auth()->user()->name }}</h6>
                         <span>{{ auth()->user()->getRoleNames()->first() }}</span>
                     </li>
