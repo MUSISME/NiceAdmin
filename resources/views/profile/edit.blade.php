@@ -12,7 +12,7 @@
                 <li class="breadcrumb-item active">Profile</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section profile">
         <div class="row">
@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('nideadmin/assets/img/agent-dummy.webp') }}"
+                        <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}"
                             alt="Profile" class="rounded-circle rounded-circle border border-dark border-1">
                         <h2>{{ $user->name }}</h2>
                         <h3>{{ $user->getRoleNames()->first() }}</h3>
@@ -91,7 +91,7 @@
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                             Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('nideadmin/assets/img/agent-dummy.webp') }}"
+                                            <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}"
                                                 alt="Profile">
                                             <div class="pt-2 d-flex justify-between gap-2">
                                                 <input class="form-control" type="file" name="image">

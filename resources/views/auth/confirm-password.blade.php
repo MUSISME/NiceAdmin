@@ -45,7 +45,7 @@
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
+                                    <img src="niceadmin/assets/img/logo.png" alt="">
                                     <span class="d-none d-lg-block">NiceAdmin</span>
                                 </a>
                             </div><!-- End Logo -->
@@ -62,7 +62,13 @@
 
                                 <div class="card-body">
 
-                                    <div class="pt-4 pb-2">
+                                    <div class="pt-4 profile">
+                                        <div class="text-center profile-card mb-3">
+                                            <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}"
+                                alt="Profile" class="rounded-circle border border-dark border-1" width="30%">
+                                            <h2>{{ auth()->user()->name }}</h2>
+                                            {{-- <h3>{{ auth()->user()->getRoleNames()->first() }}</h3> --}}
+                                        </div>
                                         <p class="text-left small">This is a secure area of the application. Please confirm your password before continuing.</p>
                                     </div>
 

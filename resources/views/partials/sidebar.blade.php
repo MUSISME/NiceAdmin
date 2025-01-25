@@ -162,17 +162,17 @@
             </a>
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-                <a href="icons-bootstrap.html">
+                <a href="niceadmin/icons-bootstrap.html">
                 <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
                 </a>
             </li>
             <li>
-                <a href="icons-remix.html">
+                <a href="niceadmin/icons-remix.html">
                 <i class="bi bi-circle"></i><span>Remix Icons</span>
                 </a>
             </li>
             <li>
-                <a href="icons-boxicons.html">
+                <a href="niceadmin/icons-boxicons.html">
                 <i class="bi bi-circle"></i><span>Boxicons</span>
                 </a>
             </li>
@@ -191,6 +191,15 @@
                 </a>
             </li>
         @endif
+
+        {{-- @if (auth()->user()->can('list.user'))   --}}
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/user">
+                <i class="bi bi-people"></i>
+                <span>Users</span>
+                </a>
+            </li>
+        {{-- @endif --}}
 
         @if (auth()->user()->can('list.contacts'))
             <li class="nav-item">
