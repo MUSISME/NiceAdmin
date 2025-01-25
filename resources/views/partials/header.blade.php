@@ -171,12 +171,13 @@
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('assets/img/agent-dummy.webp') }}" alt="Profile" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
-                </a><!-- End Profile Iamge Icon -->
+                </a>
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
+                        <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('assets/img/agent-dummy.webp') }}" alt="Profile" class="img-fluid rounded-circle border border-dark border-1 my-2" width="50%">
                         <h6>{{ auth()->user()->name }}</h6>
-                        <span>Web Designer</span>
+                        <span>{{ auth()->user()->getRoleNames()->first() }}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
