@@ -67,7 +67,6 @@
                                             <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}"
                                 alt="Profile" class="rounded-circle border border-dark border-1" width="30%">
                                             <h2>{{ auth()->user()->name }}</h2>
-                                            {{-- <h3>{{ auth()->user()->getRoleNames()->first() }}</h3> --}}
                                         </div>
                                         <p class="text-left small">This is a secure area of the application. Please confirm your password before continuing.</p>
                                     </div>
@@ -81,8 +80,13 @@
                                                 id="yourPassword" required>
                                             <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 d-flex justify-center gap-3">
                                             <button class="btn btn-primary w-100" type="submit">Confirm</button>
+                                            @php
+                                                $previousUrl = url()->previous();
+                                                $currentUrl = url()->current();
+                                            @endphp
+                                            <a href="{{ $previousUrl === $currentUrl ? route('dashboard') : $previousUrl }}" class="btn btn-outline-secondary w-30">Back</a>
                                         </div>
                                     </form>
 
