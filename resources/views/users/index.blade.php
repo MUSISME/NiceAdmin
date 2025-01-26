@@ -22,7 +22,7 @@
 
                         <div class="row">
                             <div class="col-md-12 mt-3 d-flex" style="justify-content: flex-end">
-                                <button class="btn btn-small btn-primary d-flex" style="align-items: center">
+                                <button class="btn btn-small btn-primary d-flex" style="align-items: center" data-bs-toggle="modal" data-bs-target="#addModal">
                                     <i class="bx bxs-plus-circle me-1"></i>
                                     <small>Add User</small>
                                 </button>
@@ -47,7 +47,7 @@
                                             <td>{{ ($users->currentPage() - 1) * $users->perPage() + $index + 1 }}</td>
                                             <td width="10%" class="text-center">
                                                 <button type="button" class="btn btn-secondary btn-xs d-block d-sm-inline mb-sm-0 mb-1" onclick="editProfile({{ $user->id }})"><i class="bx bxs-user-detail"></i></button>
-                                                <button type="button" class="btn btn-outline-danger btn-xs d-block d-sm-inline mb-sm-0 mb-1"><i class="bi bi-trash"></i></button>
+                                                <button type="button" class="btn btn-outline-danger btn-xs d-block d-sm-inline mb-sm-0 mb-1"><i class="bi bi-trash" onclick="openDeleteModal({{ $user->id }})"></i></button>
                                             </td>
                                             <td>
                                                 <div class="d-flex gap-2" style="align-items: center">
@@ -63,7 +63,13 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">{{ $user->email }}</td>
-                                            <td class="text-center">{{ $user->phone }}</td>
+                                            <td class="text-center">
+                                                @if ($user->phone)
+                                                    {{ $user->phone }}
+                                                @else
+                                                    <small class="text-secondary">none</small>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @empty
                                         No data available
@@ -78,7 +84,7 @@
         </div>
     </section>
 
-    {{-- basic modal --}}
+    {{-- update user modal --}}
     <div class="modal fade" id="userModal" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -92,11 +98,111 @@
             </div>
         </div>
     </div>
-    {{-- end basic modal --}}
+    {{-- end update user modal --}}
+
+    <!-- delete modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this user? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <!-- Form to handle delete action -->
+                    <form id="deleteForm" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end delete modal --}}
+
+        <!-- delete modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Add User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/user" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input class="form-control" type="file" name="image" id="imageVal">
+                                </div>
+                            </div>
+    
+                            <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                <div class="col-md-8 col-lg-9 has-validation">
+                                    <input name="name" type="text" class="form-control" id="fullName" required>
+                                    <div class="invalid-feedback">Please enter your name.</div>
+                                </div>
+                            </div>
+    
+                            <div class="row mb-3">
+                                <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="phone" type="text" class="form-control" id="Phone">
+                                </div>
+                            </div>
+    
+                            <div class="row mb-3">
+                                <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="email" type="email" class="form-control" id="Email" required>
+                                    <div class="invalid-feedback">Please enter your email.</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="password" class="col-md-4 col-lg-3 col-form-label">Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="password" type="password" class="form-control" id="password" required>
+                                    <div class="invalid-feedback">Please enter your password.</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="Role" class="col-md-4 col-lg-3 col-form-label">Role</label>
+                                <div class="col-md-8 col-lg-9 has-validation">
+                                    <select name="role" id="Role" class="form-select" required>
+                                        <option value="">select a role</option>
+                                        @forelse ($roles as $role)
+                                            <option value="{{ $role->name }}">
+                                                {{ $role->name }}
+                                            </option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    <div class="invalid-feedback">Please select your role.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{-- end delete modal --}}
+
 
     <script>
-        function editProfile(id)
-        {
+        function editProfile(id) {
             const responseModal = new bootstrap.Modal(document.getElementById('userModal'));
             const contentModal = document.getElementById('contentModal');
 
@@ -180,10 +286,11 @@
                                                                                     Image</label>
                                                                                 <div class="col-md-8 col-lg-9">
                                                                                     <img src="${ response.data.image_path }"
-                                                                                        alt="Profile">
+                                                                                        alt="Profile" id="profileImg">
                                                                                     <div class="pt-2 d-flex justify-between gap-2">
-                                                                                        <input class="form-control" type="file" name="image">
-                                                                                        <a href="#" class="btn btn-danger btn-sm pt-2 pb-2"
+                                                                                        <input type="hidden" name="delete_image" value=false id="imageInput">
+                                                                                        <input class="form-control" type="file" name="image" id="imageVal">
+                                                                                        <a href="#" class="btn btn-danger btn-sm pt-2 pb-2" onclick="removeImage()"
                                                                                             title="Remove my profile image"><i class="bi bi-trash"></i></a>
                                                                                     </div>
                                                                                 </div>
@@ -340,6 +447,27 @@
                 .catch(error => {
                     responseModal.show();
                 });
+        }
+
+        function removeImage() {
+            let imageInput = document.getElementById('imageInput');
+            let imageVal = document.getElementById('imageVal');
+            let profileImg = document.getElementById('profileImg');
+            
+            // Update the profile image to the placeholder
+            profileImg.src = 'niceadmin/assets/img/agent-dummy.webp';
+
+            // Mark the input for deletion
+            imageInput.value = true;
+            imageVal.value = '';
+        }
+
+        function openDeleteModal(userId) {
+            const form = document.getElementById('deleteForm');
+            form.action = `/user/${userId}`; // Dynamically set the delete route
+
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
         }
     </script>
 @endsection

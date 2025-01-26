@@ -92,10 +92,11 @@
                                             Image</label>
                                         <div class="col-md-8 col-lg-9">
                                             <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}"
-                                                alt="Profile">
+                                                alt="Profile" id="profileImg">
                                             <div class="pt-2 d-flex justify-between gap-2">
-                                                <input class="form-control" type="file" name="image">
-                                                <a href="#" class="btn btn-danger btn-sm pt-2 pb-2"
+                                                <input type="hidden" name="delete_image" value=false id="imageInput">
+                                                <input class="form-control" type="file" name="image" id="imageVal">
+                                                <a href="#" class="btn btn-danger btn-sm pt-2 pb-2" onclick="removeImage()"
                                                     title="Remove my profile image"><i class="bi bi-trash"></i></a>
                                             </div>
                                         </div>
@@ -255,6 +256,19 @@
             } else {
                 console.warn("Your browser does not support history manipulation.");
             }
+        }
+        
+        function removeImage() {
+            let imageInput = document.getElementById('imageInput');
+            let imageVal = document.getElementById('imageVal');
+            let profileImg = document.getElementById('profileImg');
+            
+            // Update the profile image to the placeholder
+            profileImg.src = 'niceadmin/assets/img/agent-dummy.webp';
+
+            // Mark the input for deletion
+            imageInput.value = true;
+            imageVal.value = '';
         }
     </script>
 @endsection

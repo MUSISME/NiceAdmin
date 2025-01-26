@@ -52,6 +52,17 @@ class ProfileController extends Controller
 
         $user->save();
 
+        // Handle image upload if provided
+        if ($request->has('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $user->fill([
+                'image' => $path
+            ])->save();
+        } elseif ($request->delete_image == 'true') {
+            $user->image = null;
+            $user->save();
+        }
+
         if ($request->role) {
             $user->assignRole($request->role);
         }
