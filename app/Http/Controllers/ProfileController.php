@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -24,31 +25,40 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        // Fill the user model with validated data
-        $request->user()->fill($request->validated());
+        // Determine which user to update
+        $user = $request->has('id') 
+        ? \App\Models\User::findOrFail($request->input('id')) // Admin edit
+        : $request->user(); // Self-edit
+        
+        $validateData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique(\App\Models\User::class)->ignore($user->id),
+            ],
+        ]);
 
-        // If the email has changed, mark email as unverified
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->fill($validateData);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        // Save the changes to the user
-        $request->user()->save();
+        $user->save();
 
-        // Handle image upload if provided
-        if ($request->has('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $request->user()->fill([
-                'image' => $path
-            ])->save();
+        if ($request->role) {
+            $user->assignRole($request->role);
         }
 
-        // Return a success response with status and message
         return back()
             ->with('status', 'success')
-            ->with('message', 'Your profile has been updated successfully!');
+            ->with('message', 'Profile update successfully!');
     }
 
     /**

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard')</title>
 
     <!-- Favicons -->
@@ -25,6 +26,8 @@
     <!-- Include CSS -->
     <link rel="stylesheet" href="{{ asset('niceadmin/assets/css/style.css') }}">
     <!-- Additional styles -->
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 
     <style>
@@ -106,6 +109,7 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('niceadmin/assets/js/main.js') }}"></script>
     <!-- Additional scripts -->
+
     @stack('scripts')
 </body>
 </html>

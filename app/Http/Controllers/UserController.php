@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -12,8 +13,9 @@ class UserController extends Controller
     public function index()
     {
         $users = \App\Models\User::paginate(10);
+        $roles = Role::get();
 
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users', 'roles'));
     }
 
     /**
@@ -35,9 +37,11 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(\App\Models\User $user)
     {
-        //
+        $user->role = $user->getRoleNames()->first();
+        $user->image_path = $user->image ? asset('storage/' . $user->image) : asset('niceadmin/assets/img/agent-dummy.webp');
+        return response()->json($user);
     }
 
     /**

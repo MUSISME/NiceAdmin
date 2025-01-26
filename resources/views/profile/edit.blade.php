@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-center">
+                                    <div class="d-flex justify-end">
                                         <button type="submit" class="btn btn-primary">Save Changes</button>
                                     </div>
                                 </form><!-- End Profile Edit Form -->
@@ -171,7 +171,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-center">
+                                    <div class="d-flex justify-end">
                                         <button type="submit" class="btn btn-primary">Save Changes</button>
                                     </div>
                                 </form><!-- End settings Form -->
@@ -214,7 +214,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-center">
+                                    <div class="d-flex justify-end">
                                         <button type="submit" class="btn btn-primary">Change Password</button>
                                     </div>
                                 </form><!-- End Change Password Form -->
