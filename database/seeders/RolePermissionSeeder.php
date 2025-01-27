@@ -12,9 +12,10 @@ class RolePermissionSeeder extends Seeder
     {
         // Define the modules
         $modules = [
-            'users',
-            'contacts',
             'profile',
+            'permissions',
+            'roles',
+            'users',
         ];
 
         // Actions for each module

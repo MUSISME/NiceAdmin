@@ -133,7 +133,7 @@
                         <h5 class="modal-title" id="addModalLabel">Add User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/user" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
+                    <form action="/users" method="POST" enctype="multipart/form-data" novalidate class="needs-validation">
                         @csrf
                         <div class="modal-body">
                             <div class="row mb-3">
@@ -265,7 +265,7 @@
 
                                                                         <div class="row">
                                                                             <div class="col-lg-3 col-md-4 label">Phone</div>
-                                                                            <div class="col-lg-9 col-md-8">${ response.data.phone }</div>
+                                                                            <div class="col-lg-9 col-md-8">${ response.data.phone ?? "-"}</div>
                                                                         </div>
 
                                                                         <div class="row">
@@ -309,7 +309,7 @@
                                                                                 <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                                                                 <div class="col-md-8 col-lg-9">
                                                                                     <input name="phone" type="text" class="form-control" id="Phone"
-                                                                                        value="${ response.data.phone }">
+                                                                                        value="${ response.data.phone ?? "" }">
                                                                                 </div>
                                                                             </div>
 
@@ -464,7 +464,7 @@
 
         function openDeleteModal(userId) {
             const form = document.getElementById('deleteForm');
-            form.action = `/user/${userId}`; // Dynamically set the delete route
+            form.action = `/users/${userId}`; // Dynamically set the delete route
 
             const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
             deleteModal.show();

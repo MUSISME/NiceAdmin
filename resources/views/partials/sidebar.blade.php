@@ -179,7 +179,7 @@
             </ul>
         </li><!-- End Icons Nav -->
 
-        @if (auth()->user()->can(['list.profile', 'list.contacts']))   
+        @if (auth()->user()->canAny(['list.profile', 'list.contacts']))   
             <li class="nav-heading">Pages</li>
         @endif
 
@@ -192,20 +192,42 @@
             </li>
         @endif
 
-        {{-- @if (auth()->user()->can('list.user'))   --}}
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/user">
-                <i class="bi bi-people"></i>
-                <span>Users</span>
-                </a>
-            </li>
-        {{-- @endif --}}
-
         @if (auth()->user()->can('list.contacts'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/contact">
                 <i class="bi bi-envelope"></i>
                 <span>Contact</span>
+                </a>
+            </li>
+        @endif
+
+        @if (auth()->user()->canAny(['list.permissions', 'list.roles', 'list.users']))  
+            <li class="nav-heading">Settings</li>
+        @endif
+
+        @if (auth()->user()->can('list.permissions'))  
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/permissions">
+                <i class="bi bi-key"></i>
+                <span>Permissions</span>
+                </a>
+            </li>
+        @endif
+
+        @if (auth()->user()->can('list.roles'))  
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/roles">
+                <i class="bi bi-lock"></i>
+                <span>Roles</span>
+                </a>
+            </li>
+        @endif
+
+        @if (auth()->user()->can('list.users'))  
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/users">
+                <i class="bi bi-people"></i>
+                <span>Users</span>
                 </a>
             </li>
         @endif
