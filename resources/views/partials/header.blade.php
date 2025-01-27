@@ -175,7 +175,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}" alt="Profile" class="img-fluid rounded-circle border border-dark border-1 my-2" width="50%">
+                        <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('niceadmin/assets/img/agent-dummy.webp') }}" alt="Profile" class="img-fluid rounded-circle border border-dark border-1 my-2 mx-auto" width="50%">
                         <h6>{{ auth()->user()->name }}</h6>
                         <span>{{ auth()->user()->getRoleNames()->first() }}</span>
                     </li>
